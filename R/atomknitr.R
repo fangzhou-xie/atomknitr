@@ -7,6 +7,10 @@ atomknitr <- function(inputFile, encoding) {
 
   # read yaml header from rmd file and append them into the output file
   yaml <- rmd[grep("---", rmd)[1]: grep("---", rmd)[2]]
+  # font style config
+  style <- unlist(strsplit("<style type=\"text/css\">\n  body{\n  font-size: 14pt;\n}\n</style>", "\n"),
+                  use.names = F)
+  yaml <- append(yaml, style)
 
   # write out to a temp file
   ofile <- rmarkdown::render(inputFile, output_dir = "../_posts", encoding=encoding, envir=new.env())
