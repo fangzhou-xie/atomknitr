@@ -13,6 +13,14 @@ atomknitr <- function(inputFile, encoding) {
 
   ofile <- file.path("../_posts", paste0(tools::file_path_sans_ext(basename(inputFile)), ".html"))
   html <- readLines(ofile)
+
+  # remove auto-generated title and date from html file
+  # these info has been captured by the yaml
+  titleid <- grep("<h1 class=\"title.*?\">.*?</h1>", html)
+  dateid <- grep("<h4 class=\"date\">.*?</h4>", html)
+  html[titleid] <- paste0("<!-- ", html[titleid], " -->")
+  html[dateid] <- paste0("<!-- ", html[dateid], " -->")
+
   html <- append(yaml, html)
   writeLines(html, ofile)
 }
