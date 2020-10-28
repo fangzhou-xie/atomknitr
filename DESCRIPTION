@@ -1,0 +1,12 @@
+Package: atomknitr
+Type: Package
+Title: Cumtom Knit Function for My Atom Editor
+Version: 0.1.0
+Author: Fangzhou Xie
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: I need a specific custom knit function for compiling 
+    RMD to HTML for Github pages.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
