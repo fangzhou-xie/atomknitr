@@ -3,17 +3,22 @@
 #' @export
 atomknitr <- function(inputFile, encoding) {
 
+  # inputFile <- "2020-10-28-atom-rmd.rmd"
   rmd <- readLines(inputFile)
 
   # read yaml header from rmd file and append them into the output file
   yaml <- rmd[grep("---", rmd)[1]: grep("---", rmd)[2]]
+  rmdcontent <- rmd[-(grep("---", rmd)[1]: grep("---", rmd)[2])]
   # font style config
-  style <- unlist(strsplit("<style type=\"text/css\">\n  body{\n  font-size: 14pt;\n}\n</style>", "\n"),
+  style <- unlist(strsplit("<style type=\"text/css\">\n  body{\n  font-size: 13pt;\n}\n</style>", "\n"),
                   use.names = F)
-  yaml <- append(yaml, style)
+  yaml_style <- append(yaml, style)
+  rmd_style <- append(yaml_style, rmdcontent)
 
   # write out to a temp file
-  ofile <- rmarkdown::render(inputFile, output_dir = "../_posts", encoding=encoding, envir=new.env())
+  tmpfile <- file.path(tempdir(), basename(inputFile))
+  writeLines(rmd_style, tmpfile)
+  ofile <- rmarkdown::render(tmpfile, output_dir = "../_posts", encoding=encoding, envir=new.env())
 
   ofile <- file.path("../_posts", paste0(tools::file_path_sans_ext(basename(inputFile)), ".html"))
   html <- readLines(ofile)
