@@ -21,6 +21,12 @@ atomknitr <- function(inputFile, encoding) {
   html[titleid] <- paste0("<!-- ", html[titleid], " -->")
   html[dateid] <- paste0("<!-- ", html[dateid], " -->")
 
+  # for some reason, the output will have duplicate elements
+  # we need to manipulate the html content to remove them
+  pids <- grep("<p>.*?</p>", html)
+  html <- html[-pids[1:(length(pids)/2)]]
+
+  # append yaml headers on the top
   html <- append(yaml, html)
   writeLines(html, ofile)
 }
