@@ -12,6 +12,8 @@ atomknitr <- function(inputFile, encoding) {
   # font style config
   style <- unlist(strsplit("<style type=\"text/css\">\n  body{\n  font-size: 13pt;\n}\n</style>", "\n"),
                   use.names = F)
+  bib <- c("bibliography:", "  - \"`r system('kpsewhich ~/Zotero/Library.bib', intern=TRUE)`\"")
+  yaml <- append(yaml, bib, after=grep("---", rmd)[2]-1)
   yaml_style <- append(yaml, style)
   rmd_style <- append(yaml_style, rmdcontent)
 
