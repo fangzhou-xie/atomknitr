@@ -33,7 +33,7 @@ atomknitr <- function(inputFile, encoding) {
   # for some reason, the output will have duplicate elements
   # we need to manipulate the html content to remove them
   pids <- grep("<p>.*?</p>", html)
-  html <- html[-pids[1:(length(pids)/2)]]
+  # html <- html[-pids[1:(length(pids)/2)]]
 
   # append yaml headers on the top
   html <- append(yaml, html)
