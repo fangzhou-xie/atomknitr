@@ -45,7 +45,7 @@ atomknitr <- function(inputFile, encoding) {
 #' Custom Knit function for VS Code
 #'
 #' @export
-vscodeknitr <- function(inputFile, encoding, output_dir = "_posts") {
+vscodeknitr <- function(inputFile, encoding, output_dir = "./_posts") {
 
   # inputFile <- "2020-10-28-atom-rmd.rmd"
   rmd <- readLines(inputFile)
@@ -67,7 +67,7 @@ vscodeknitr <- function(inputFile, encoding, output_dir = "_posts") {
   rmarkdown::render(tmpfile, encoding = encoding, envir = new.env())
 
   ofile <- file.path(output_dir, paste0(tools::file_path_sans_ext(basename(inputFile)), ".html"))
-  file.copy(tmpfile, ofile, overwrite = T)
+  # file.copy(tmpfile, ofile, overwrite = T)
   html <- readLines(ofile)
 
   # remove auto-generated title and date from html file
