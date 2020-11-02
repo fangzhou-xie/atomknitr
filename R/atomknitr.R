@@ -42,7 +42,7 @@ atomknitr <- function(inputFile, encoding) {
   writeLines(html, ofile)
 }
 
-#' Custom Knit function for Atom
+#' Custom Knit function for VS Code
 #'
 #' @export
 vscodeknitr <- function(inputFile, encoding, output_dir = "_posts") {
