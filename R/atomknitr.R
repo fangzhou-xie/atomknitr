@@ -64,9 +64,10 @@ vscodeknitr <- function(inputFile, encoding, output_dir = "_posts") {
   # write out to a temp file
   tmpfile <- file.path(tempdir(), basename(inputFile))
   writeLines(rmd_style, tmpfile)
-  ofile <- rmarkdown::render(tmpfile, encoding = encoding, envir = new.env())
+  rmarkdown::render(tmpfile, encoding = encoding, envir = new.env())
 
   ofile <- file.path(output_dir, paste0(tools::file_path_sans_ext(basename(inputFile)), ".html"))
+  file.copy(tmpfile, ofile, overwrite = T)
   html <- readLines(ofile)
 
   # remove auto-generated title and date from html file
